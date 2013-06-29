@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<head>
+    <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
+    <head>
+        <script src="lib/angular/angular.js"></script>
+        <script src="js/controllers.js"></script>
+    </head>
+{% autoescape true %}
+<html ng-app>
+  <body>
+    {% for greeting in greetings %}
+      {% if greeting.author %}
+        <b>{{ greeting.author.nickname() }}</b> wrote:
+      {% else %}
+       An anonymous person wrote:
+      {% endif %}
+      <blockquote>{{ greeting.content }}</blockquote>
+    {% endfor %}
+
+    <div>
+        <label>Name:</label>
+            <input type="text" ng-model="yourName" placeholder="Enter a name here">
+            <hr>
+            <h1>Hello {{yourName}}!</h1>
+    </div>
+    <div id='wordcloud'>
+    {% for word in words.dictionary %}
+        {{ word.id }}
+        <blockquote>
+        {% for defintion in word.definitions %}
+            <p>{{defintion}}</p>
+        {% endfor %}
+        </blockquote>
+    {% endfor %}
+    </div>
+
+    <form action="/sign?guestbook_name={{ guestbook_name }}" method="post">
+      <div><textarea name="content" rows="3" cols="60"></textarea></div>
+      <div><input type="submit" value="Sign Guestbook"></div>
+    </form>
+
+    <hr>
+
+    <form>Guestbook name:
+      <input value="{{ guestbook_name }}" name="guestbook_name">
+      <input type="submit" value="switch">
+    </form>
+
+    <a href="{{ url|safe }}">{{ url_linktext }}</a>
+
+  </body>
+</html>
+{% endautoescape %}

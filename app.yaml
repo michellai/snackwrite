@@ -1,0 +1,34 @@
+application: snackwrite
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: true
+
+handlers:
+- url: /favicon\.ico
+  static_files: favicon.ico
+  upload: favicon\.ico
+
+- url: /stylesheets
+  static_dir: stylesheets
+
+- url: /app
+  static_dir: app
+
+- url: /partials
+  static_dir: app/partials
+
+- url: /.*
+  script: guestbook.application
+
+libraries:
+- name: webapp2
+  version: latest
+- name: jinja2
+  version: latest
+- name: pycrypto
+    version: "2.6"
+
+
+
+
