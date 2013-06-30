@@ -39,3 +39,6 @@ nosetests.xml
 
 # Compiled Python
 *.pyc
+
+# tmp files marked with _
+_*.*
