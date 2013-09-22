@@ -1,79 +1,96 @@
-
 <!DOCTYPE html>
-<head>
-    <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
-    <head>
-        <!--<script src="app/lib/angular/angular.js"></script>-->
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-        <script src="app/js/choice.js"></script>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script>
-        function loadXMLDoc()
-        {
-            var xmlhttp;
-            if (window.XMLHttpRequest)
-            {// code for IE7+, Firefox, Chrome, Opera, Safari
-                xmlhttp=new XMLHttpRequest();
-            }
-            else
-            {// code for IE6, IE5
-                xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-            }
-
-        }
-        </script>
-        <script type="text/javascript">
-        $(document).ready(function() {
-          $(window).resize(
-            function(){
-                $('.bubble').width($(window).width()/4.5);
-                $('.bubble').height($('.bubble').width());
-                $('p.choice').css('font-size',($(window).width()/17)+'px');
-            }
-          );
-
-          $(window).resize();
-        });
-        </script>
-    </head>
 {% autoescape true %}
 <html ng-app>
+<head>
+    <link rel="stylesheet" href="app/css/bootstrap.min.css">
+    <link rel="stylesheet" href="app/css/bootstrap-responsive.min.css">
+    <link rel="stylesheet" href="app/css/bootstrap.css">
+    <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="pencilcake icon" href="app/img/pencilcake_favicon.ico">
+    <!--<script src="app/lib/angular/angular.js"></script>-->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script src="app/js/bootstrap.min.js"></script>
+    <script src="app/js/bootstrap.js"></script>
+    <script src="app/js/choice.js"></script>
+    <script>
+    function loadXMLDoc()
+    {
+        var xmlhttp;
+        if (window.XMLHttpRequest)
+        {// code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp=new XMLHttpRequest();
+        }
+        else
+        {// code for IE6, IE5
+            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+
+    }
+    </script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+      $(window).resize(
+        function(){
+            $('.bubble').width($(window).width()/4.5);
+            $('.bubble').height($('.bubble').width());
+            $('p.choice').css('font-size',($(window).width()/17)+'px');
+        }
+      );
+
+      $(window).resize();
+    });
+    </script>
+</head>
   <body>
       <div class="container-fluid">
-        <div class="row">
-            <div class="col-xs-12">
-                <table id="header"><tr>
-                   <td width="45%"><p class="tagline" id="tagleft">fictitious</p></td>
-                   <td width="10%"><img id="logo" src="app/img/pencilcake.png"/></td>
-                   <td width="45%"><p class="tagline" id="tagright">nibbling</p></td>
-                </tr>
-                <tr>
-                    <td colspan="3"><p id="productname">  snackwrite</p></td>
-                <tr></table>
+        <div id="header" class="row" >
+            <div class="col-md-10 col-lg-8 col-md-offset-1 col-lg-offset-2 visible-md visible-lg visible-xl">
+                <div class="row" >
+                  <div class="col-xs-12 col-sm-12 col-md-12 logoline">
+                    <p class="tagline" id="tagleft">fictitious</p>
+                    <img id="logo" class="img-responsive" src="app/img/pencilcake.png"/>
+                    <p class="tagline" id="tagright">nibbling</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                     <p class="brand" id="bigname">snackwrite</p>
+                  </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-s-12 visible-xs visible-s">
+                <div class="row logoline" >
+                  <img id="tinylogo" class="img-responsive" src="app/img/pencilcake_s.png"/>
+                  <p id="tinyname" class="brand">snackwrite</p>
+                </div>
             </div>
         </div>
         <div id="pickone" class="row">
-          <div class="col-xs-6 col-sm-4 col-md-4">
-              <div class="read bubble shadow">
+          <div class="col-xs-12 col-md-10 col-lg-8 col-md-offset-1 col-lg-offset-2">
+              <div class="row">
+                  <div class="col-xs-6 col-sm-4 col-md-4">
+                      <div class="read bubble shadow">
+                      </div>
+                      <a class="read bubble pushme">
+                          <p class="choice">read</p>
+                      </a>
+                  </div>
+                  <div class="col-xs-6 col-sm-4 col-md-4">
+                      <div class="write bubble shadow">
+                      </div>
+                      <a class="write bubble pushme">
+                          <p class="choice">write</p>
+                      </a>
+                  </div>
+                  <div class="col-xs-6 col-sm-4 col-md-4">
+                      <div class="snack bubble shadow">
+                      </div>
+                      <a class="snack bubble pushme">
+                          <p class="choice">snack</p>
+                      </a>
+                  </div>
               </div>
-              <a class="read bubble pushme">
-                  <p class="choice">read</p>
-              </a>
-          </div>
-          <div class="col-xs-6 col-sm-4 col-md-4">
-              <div class="write bubble shadow">
-              </div>
-              <a class="write bubble pushme">
-                  <p class="choice">write</p>
-              </a>
-          </div>
-          <div class="col-xs-6 col-sm-4 col-md-4">
-              <div class="snack bubble shadow">
-              </div>
-              <a class="snack bubble pushme">
-                  <p class="choice">snack</p>
-              </a>
-          </div>
         </div>
       </div>
   </body>
