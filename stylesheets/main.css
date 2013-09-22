@@ -8,7 +8,7 @@
   src: url('../app/font/futurab.ttf');
 }
 @font-face {
-  font-family: "Futura BT Italic";
+  font-family: "Futura BT Light";
   src: url('../app/font/futural.ttf');
 }
 @font-face {
@@ -24,47 +24,51 @@ body {
   background-image:url('../app/img/sprinkles_nodrop_30.png');
   background-color: #FFFFFF;
   background-repeat: repeat;
-  min-width: 800px;
+  min-height: 480px;
+  overflow: hidden;
 }
 
 .container-fluid {
   margin-right: auto;
   margin-left: auto;
-  max-width: 1600px; /* or 950px */
+  max-width: 950px; /* or 950px */
 }
 #worddef {
     display: none;
 }
 
 .bubble {
-    height: 35%;
-    max-height: 40%;
+    max-width:25%;
     min-height: 10%;
     display: block;
     position: fixed;
     text-align: center;
 }
-p.choice {
-    color: white;
-    font-size: 28px;
-    height: inherit;
-    display: block;
-    margin-top: 7%;
-    vertical-align: middle;
-    padding-top: 30%;
-    padding-bottom: 30%;
-}
+/*
 table, td {
     border: 1px solid black;
 }
+*/
 .tagline {
+    vertical-align:middle;
     font-family: "Garamond Italic", Verdana, Tahoma;
-    font-size:24px;
-    opacity: .5;
+    padding-top: 15%;
+    font-size:20px;
+    opacity: .4;
+    letter-spacing: 5px;
 }
+table#header {
+    max-width: 950px; /* or 950px */
+    min-width: 360px;
+    width:100%;
+    margin-top:50px;
+}
+
 #header img {
     display: block;
     text-align: center;
+    height: 100%;
+    padding-left: 10%;
 }
 #tagleft {
     padding-left: 10px;
@@ -75,6 +79,30 @@ table, td {
     padding-left: 10px;
     text-align:left;
     padding-right: 10px;
+}
+p#productname {
+    font-family: "Futura BT Light", Verdana, Tahoma;
+    letter-spacing: 4px;
+    opacity: .75;
+    font-size:18px;
+    color:black;
+    text-align:center;
+    vertical-align:middle;
+    padding-left: 3%;
+}
+#pickone {
+    margin-top: 145px;
+    padding-bottom:145px;
+    display: block;
+}
+p.choice {
+    color: white;
+    font-size: 28px;
+    /*height: inherit;*/
+    display: block;
+    margin-top: 5%;;
+    vertical-align: middle;
+    padding-top: 30%;
 }
 p.choice:hover {
     color: rgb( 35, 242, 250 );

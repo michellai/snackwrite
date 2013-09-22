@@ -3,7 +3,7 @@
 <head>
     <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
     <head>
-        <script src="app/lib/angular/angular.js"></script>
+        <!--<script src="app/lib/angular/angular.js"></script>-->
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
         <script src="app/js/choice.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,8 +28,7 @@
             function(){
                 $('.bubble').width($(window).width()/4.5);
                 $('.bubble').height($('.bubble').width());
-                $('p.choice').css('font-size',($(window).height()/11)+'px');
-                $('table#header').css('left',($(window).width()/3)+'px');
+                $('p.choice').css('font-size',($(window).width()/17)+'px');
             }
           );
 
@@ -44,13 +43,16 @@
         <div class="row">
             <div class="col-xs-12">
                 <table id="header"><tr>
-                   <td><p class="tagline" id="tagleft">fictitious</p></td>
-                   <td align='center'><img id="logo" src="app/img/pencilcake.png"/></td>
-                   <td><p class="tagline" id="tagright">nibbling</p></td>
-                </tr></table>
+                   <td width="45%"><p class="tagline" id="tagleft">fictitious</p></td>
+                   <td width="10%"><img id="logo" src="app/img/pencilcake.png"/></td>
+                   <td width="45%"><p class="tagline" id="tagright">nibbling</p></td>
+                </tr>
+                <tr>
+                    <td colspan="3"><p id="productname">  snackwrite</p></td>
+                <tr></table>
             </div>
         </div>
-        <div class="row">
+        <div id="pickone" class="row">
           <div class="col-xs-6 col-sm-4 col-md-4">
               <div class="read bubble shadow">
               </div>
