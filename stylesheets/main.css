@@ -17,19 +17,19 @@
 @media only screen and (min-width: 60em) { 
     body { 
         font-family: "Futura BT", Verdana, Tahoma;
-        background-image:url('../app/img/candycane.png'), url('../app/img/angelcake.png');
+        background-image:url('../app/img/candycane_sm.png'), url('../app/img/angelcake_sm.png');
         background-position: left, left top;
         background-color: rgba(255,255,255,0.5);
-        background-repeat: repeat-y, repeat;
+        background-repeat: repeat-y, repeat-y;
         background-size:contain;
     }
 }
 @media only screen and (max-width: 60em) {
     body {
       font-family: "Futura BT", Verdana, Tahoma;
-      background-image:url('../app/img/angelcake.png');
+      background-image:url('../app/img/angelcake_sm.png');
       background-color: rgba(255,255,255,0.5);
-      background-repeat: repeat;
+      background-repeat: repeat_y;
       background-size:contain;
       min-height: 480px;
       overflow: hidden;
