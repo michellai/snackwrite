@@ -6,8 +6,8 @@ threadsafe: yes
 
 handlers:
 - url: /favicon\.ico
-  static_files: favicon.ico
-  upload: favicon\.ico
+  static_files: app/img/pencilcake_favicon.ico
+  upload: app/img/pencilcake_favicon.ico
 
 - url: /stylesheets
   static_dir: stylesheets
