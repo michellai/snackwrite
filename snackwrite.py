@@ -2,6 +2,7 @@ import os
 import urllib
 
 from boilerplate import BaseHandler
+from wordsmith import WordIndex, WordSet
 from google.appengine.api import users
 from google.appengine.ext import ndb
 
@@ -63,15 +64,29 @@ class Greeting(ndb.Model):
     content = ndb.StringProperty(indexed=False)
     date = ndb.DateTimeProperty(auto_now_add=True)
 
-class WordIndex(ndb.Model):
-    id = ndb.StringProperty(indexed=True)
-    definitions = ndb.JsonProperty(indexed=False)
-
-class WordSet(ndb.Model):
-    """ Collection of WordIndex Objects  """
-    dictionary = ndb.StructuredProperty(WordIndex, repeated=True)
-
 class MainPage(webapp2.RequestHandler):
+    def get(self):
+        guestbook_name = self.request.get('guestbook_name',
+                                          DEFAULT_GUESTBOOK_NAME)
+        greetings_query = Greeting.query(
+            ancestor=guestbook_key(guestbook_name)).order(-Greeting.date)
+        greetings = greetings_query.fetch(10)
+        if users.get_current_user():
+            url = users.create_logout_url(self.request.uri)
+            url_linktext = 'Logout'
+        else:
+            url = users.create_login_url(self.request.uri)
+            url_linktext = 'Login'
+        template_values = {
+            'greetings': greetings,
+            'guestbook_name': guestbook_name,
+            'url': url,
+            'url_linktext': url_linktext,
+        }
+        template = JINJA_ENVIRONMENT.get_template('cover.html')
+        self.response.write(template.render(template_values))
+
+class DecisionPage(webapp2.RequestHandler):
 
     def get(self):
         guestbook_name = self.request.get('guestbook_name',
@@ -161,5 +176,6 @@ class Guestbook(webapp2.RequestHandler):
 
 application = webapp2.WSGIApplication([
     ('/', MainPage),
+    ('/choose', DecisionPage),
     ('/sign', Guestbook),
 ], debug=True)
