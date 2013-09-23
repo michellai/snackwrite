@@ -1,4 +1,15 @@
 
+$(function ()
+{
+    $("#logo").mouseenter(function () {
+        $(this).animate({width:'+=1%',
+                         height:'+=1%'}, 'medium')
+    }).mouseleave(function ()
+    {
+        $(this).animate({width:'-=1%',
+                         height:'+=1%'}, 'medium')
+    });
+});
 
 $(function ()
 {

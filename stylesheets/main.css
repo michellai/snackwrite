@@ -36,11 +36,15 @@
     }
 }
 
+a.homelink:hover {
+    text-decoration:none;
+
+}
 #header {
   position: relative;
   display: block;
   margin-bottom: 0px;
-  margin-top: 50px;
+  margin-top: 2%;
 }
 
 .container-fluid {
@@ -51,7 +55,39 @@
 #worddef {
     display: none;
 }
+#definition {
+    font-size:14px;
+}
 
+#prewrite {
+    margin-top: 3%;
+}
+p#introText {
+    vertical-align:middle;
+    text-align:center;
+    font-size:18px;
+    letter-spacing: 8px;
+}
+span.contestWord {
+    letter-spacing: .8px;
+    font-size:40px;
+    text-transform:uppercase;
+    vertical-align:middle;
+    padding-left:8px;
+    padding-right:8px;
+}
+/* dropt css is for managing dynamic hovers over text */
+span.dropt {border-bottom: thin dotted; background: #fff8a7;}
+span.dropt:hover {text-decoration: none; background: #ffffff; z-index: 6; }
+span.dropt span {position: absolute; left: -9999px;
+padding: 3px 3px 3px 3px;
+border-style:solid; border-color:black; border-width:1px; z-index: 6;}
+span.dropt:hover span {top: 50px; left: 0%; background: #ffffff;} 
+span.dropt span {position: absolute; left: -9999px;
+padding: 3px 3px 3px 3px; 
+border-style:solid; border-color:black; border-width:1px;}
+span.dropt:hover span {margin: 20px 0 0 170px; background: #ffffff; z-index:6;} 
+/******************************************************/
 /*
 table, td {
     border: 1px solid black;
@@ -61,7 +97,7 @@ table, td {
     vertical-align:middle;
     font-family: "Garamond Italic", Verdana, Tahoma;
     padding-top: 15%;
-    font-size:24px;
+    font-size:18px;
     opacity: .25;
     letter-spacing: 10px;
     display: inline;
@@ -85,8 +121,8 @@ p#tagright{
     color:black;
     text-align:center;
     padding-left: 3%;
-    padding-top: 3%;
-    font-size:28px;
+    padding-top: 2%;
+    font-size:20px;;
     background-color: rgba(255,255,255, 1);
 }
 .logoline {
@@ -102,17 +138,14 @@ img { -ms-interpolation-mode: bicubic; }
     text-align: center;
     display: inline;
 }
-#pickone {
-    margin-top: 145px;
-    padding-bottom:145px;
-    display: block;
-}
 .bubble {
   max-width:100%;
   max-height: 80%;
   display: block;
   position: fixed;
   text-align: center;
+  margin-top: 2%;
+  margin-bottom: 2%;
 }
 
 p.choice {
@@ -138,12 +171,14 @@ p.choice:hover {
 .snack {
     left: 65%;
 }
+.confirm {
+    left: 40%;
+}
 .pushme {
     border-radius: 100%;
     -webkit-border-radius: 100%;
     -moz-border-radius: 100%;
     background-color: rgb( 35, 242, 250 );
-    top: 45%;
     vertical-align:middle;
 }
 .pushme:hover {
@@ -156,7 +191,6 @@ p.choice:hover {
     -webkit-border-radius: 100%;
     -moz-border-radius: 100%;
     background-color: rgb( 108, 203, 252 );
-    top: 47%;
 }
 .shadow:hover {
     visibility: hidden;

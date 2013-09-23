@@ -83,7 +83,33 @@ class MainPage(webapp2.RequestHandler):
             'url': url,
             'url_linktext': url_linktext,
         }
-        template = JINJA_ENVIRONMENT.get_template('cover.html')
+        template = JINJA_ENVIRONMENT.get_template('choices.html')
+        self.response.write(template.render(template_values))
+
+class PreWritePage(webapp2.RequestHandler):
+    def get(self):
+        guestbook_name = self.request.get('guestbook_name',
+                                          DEFAULT_GUESTBOOK_NAME)
+        greetings_query = Greeting.query(
+            ancestor=guestbook_key(guestbook_name)).order(-Greeting.date)
+        greetings = greetings_query.fetch(10)
+        if users.get_current_user():
+            url = users.create_logout_url(self.request.uri)
+            url_linktext = 'Logout'
+        else:
+            url = users.create_login_url(self.request.uri)
+            url_linktext = 'Login'
+        contest_word = 'cherries'
+        definition = 'plural of small, round stone fruit that is typically bright or dark red.'
+        template_values = {
+            'greetings': greetings,
+            'guestbook_name': guestbook_name,
+            'url': url,
+            'url_linktext': url_linktext,
+            'contest_word': contest_word,
+            'definition': definition
+        }
+        template = JINJA_ENVIRONMENT.get_template('wordpage.html')
         self.response.write(template.render(template_values))
 
 class DecisionPage(webapp2.RequestHandler):
@@ -177,5 +203,6 @@ class Guestbook(webapp2.RequestHandler):
 application = webapp2.WSGIApplication([
     ('/', MainPage),
     ('/choose', DecisionPage),
+    ('/write', PreWritePage),
     ('/sign', Guestbook),
 ], debug=True)

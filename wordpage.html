@@ -1,0 +1,98 @@
+
+<!DOCTYPE html>
+{% autoescape true %}
+<html ng-app>
+<head>
+    <link rel="stylesheet" href="app/css/bootstrap.min.css">
+    <link rel="stylesheet" href="app/css/bootstrap-responsive.min.css">
+    <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <link rel="pencilcake icon" href="app/img/pencilcake_favicon.ico">
+    <!--<script src="app/lib/angular/angular.js"></script>-->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script src="app/js/bootstrap.min.js"></script>
+    <script src="app/js/choice.js"></script>
+    <script>
+    function loadXMLDoc()
+    {
+        var xmlhttp;
+        if (window.XMLHttpRequest)
+        {// code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp=new XMLHttpRequest();
+        }
+        else
+        {// code for IE6, IE5
+            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+
+    }
+    </script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+      $(window).resize(
+        function(){
+            $('.bubble').width($(window).width()/4.5);
+            $('.bubble').height($('.bubble').width());
+            $('.pushme').css('top', ($(window).height()*.5)+'px');
+            $('.shadow').css('top', ($(window).height()*.52)+'px');
+            $('p.choice').css('font-size',($(window).width()/17)+'px');
+        }
+      );
+
+      $(window).resize();
+    });
+    </script>
+</head>
+  <body>
+      <div class="container-fluid">
+        <div id="header" class="row" >
+            <div class="col-md-10 col-lg-8 col-md-offset-1 col-lg-offset-2 hidden-xs hidden-s">
+                <div class="row" >
+                  <div class="col-xs-12 col-sm-12 col-md-12 logoline">
+                    <p class="tagline" id="tagleft">fictitious</p>
+                    <a class="homelink" href="/">
+                        <img id="logo" class="img-responsive" src="app/img/pencilcake.png"/>
+                    </a>
+                    <p class="tagline" id="tagright">nibbling</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                     <a class="homelink" href="/">
+                        <p class="brand" id="bigname">snackwrite</p>
+                     </a>
+                  </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-s-12 visible-xs visible-s">
+                <div class="row logoline" >
+                  <img id="tinylogo" class="img-responsive" src="app/img/pencilcake_s.png"/>
+                  <p id="tinyname" class="brand">snackwrite</p>
+                </div>
+            </div>
+        </div>
+        <div id="prewrite" class="row">
+          <div class="col-xs-12 col-md-10 col-lg-8 col-md-offset-1 col-lg-offset-2">
+              <div class="row">
+                  <div class="col-xs-12 col-sm-12 col-md-12">
+                      <p id="introText">your word is:
+                      <span class="dropt contestWord" title="Word">{{contest_word}}
+                          <span id="definition">{{definition}}</span>
+                      </span></p>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-xs-12 col-sm-12 col-md-12">
+                      <div class="confirm bubble shadow">
+                      </div>
+                      <a class="confirm bubble pushme">
+                          <p class="choice">ok</p>
+                      </a>
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>
+  </body>
+</html>
+{% endautoescape %}
