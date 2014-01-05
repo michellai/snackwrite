@@ -48,7 +48,8 @@
         $('.author').css('display', 'none');
         $('.submitName').css('display', 'none');
         $('.writeronebox').addClass('text-left');
-        $startTimer();
+        $('.submitSnack').show();
+        startTimer();
       });
     });
     </script>
@@ -68,9 +69,8 @@
         }
         document.getElementsByClassName("writerone")[0].innerHTML=x;
         document.getElementsByClassName("author")[0].value=x;
-        document.getElementById("snacktext").removeAttribute('disabled');
     }
-    window.onload=function() {
+    function startTimer() {
       var center = 100,
           backColor = "rgba(250,250,250,.4)",
           alpha = 0.9,
@@ -138,7 +138,7 @@
         secSetup.old = secCount - 0.01;
       }, 0);
       
-    };
+    }
 
     </script>
 </head>
@@ -191,13 +191,10 @@
                           <div id="shine" class="center-block">
                              <canvas width="200" height="200" id="myCanvas" class="center-block"></canvas>
                           </div>
+
+                          <input type="hidden" name="contest_word" value="{{contest_word}}">
+                          <input class="submitSnack btn-info" type="submit" value="done!">
                   </div>
-              </div>
-            </div>
-            <div class="submitButton" class="row">
-              <div class="col-xs-12 col-sm-12">
-                  <input type="hidden" name="contest_word" value="{{contest_word}}">
-                  <input class="submitSnack" type="submit" disabled="disable" value="hello hello!">
               </div>
             </div>
         </form>

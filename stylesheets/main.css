@@ -232,8 +232,13 @@ h2.inputbox {
     font-size:20px;
 
 }
-.submitButton {
+.submitSnack {
     display:none;
+    margin: 10px 20px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    font-size:20px;
+    padding: 10px;
 
 }
 .submitName {
