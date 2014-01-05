@@ -1,5 +1,6 @@
 import os
 import urllib
+import cgi
 
 from boilerplate import BaseHandler
 from wordsmith import WordIndex, WordSet
@@ -24,16 +25,9 @@ JINJA_ENVIRONMENT = jinja2.Environment(
     extensions=['jinja2.ext.autoescape'])
 
 MAIN_PAGE_FOOTER_TEMPLATE = """\
-    <form action="/sign?%s" method="post">
-      <div><textarea name="content" rows="3" cols="60"></textarea></div>
-      <div><input type="submit" value="Sign Guestbook"></div>
-    </form>
-
-    <hr>
-
-    <form>Guestbook name:
-      <input value="%s" name="guestbook_name">
-      <input type="submit" value="switch">
+    <form action="/?%s" method="post">
+      <input value="%s" name="author_name">
+      <input type="submit" value="login">
     </form>
 
     <a href="%s">%s</a>
@@ -42,7 +36,8 @@ MAIN_PAGE_FOOTER_TEMPLATE = """\
 </html>
 """
 
-DEFAULT_GUESTBOOK_NAME = 'default_guestbook'
+DEFAULT_CONTEST_WORD = 'cherries'
+DEFAULT_AUTHOR_NAME = 'cherries'
 DEFAULT_WORDSET_LIMIT = 6
 
 
@@ -53,6 +48,7 @@ WORDAPI = WordApi.WordApi(client)
 # entity group. Queries across the single entity group will be consistent.
 # However, the write rate should be limited to ~1/second.
 
+DEFAULT_GUESTBOOK_NAME = 'cherries'
 def guestbook_key(guestbook_name=DEFAULT_GUESTBOOK_NAME):
     """Constructs a Datastore key for a Guestbook entity with guestbook_name."""
     return ndb.Key('Guestbook', guestbook_name)
@@ -64,13 +60,46 @@ class Greeting(ndb.Model):
     content = ndb.StringProperty(indexed=False)
     date = ndb.DateTimeProperty(auto_now_add=True)
 
+def contest_key(contest_word=DEFAULT_CONTEST_WORD):
+    """Constructs a Datastore key for a SnackWrite entity with contest_word."""
+    return ndb.Key('Contest', contest_word)
+
+class SnackEntry(ndb.Model):
+    """Models an individual Snackwrite entry with author, content, and date."""
+    author = ndb.StringProperty(indexed=True)
+    genre = ndb.StringProperty(indexed=True)
+    content = ndb.StringProperty(indexed=False)
+    contest_word = ndb.StringProperty(indexed=True)
+    date = ndb.DateTimeProperty(auto_now_add=True)
+    opponent_key = ndb.KeyProperty()
+    votes = ndb.IntegerProperty(indexed=False)
+
 class MainPage(webapp2.RequestHandler):
     def get(self):
-        guestbook_name = self.request.get('guestbook_name',
-                                          DEFAULT_GUESTBOOK_NAME)
-        greetings_query = Greeting.query(
-            ancestor=guestbook_key(guestbook_name)).order(-Greeting.date)
-        greetings = greetings_query.fetch(10)
+        """"
+        user = users.get_current_user()
+
+        if users.get_current_user():
+            self.response.write('Hello, ' + user.nickname())
+            url = users.create_logout_url(self.request.uri)
+            url_linktext = 'Logout'
+
+        else:
+            self.redirect(users.create_login_url(self.request.uri))
+            url = users.create_login_url(self.request.uri)
+            url_linktext = 'Login'
+
+        author_name = users.get_current_user().nickname()
+        sign_query_params = urllib.urlencode({'author': author_name})
+        """
+
+        template = JINJA_ENVIRONMENT.get_template('choices.html')
+        self.response.write(template.render())
+
+
+class WritePage(webapp2.RequestHandler):
+    def get(self):
+        contest_word = self.request.get('contest_word', DEFAULT_CONTEST_WORD)
         if users.get_current_user():
             url = users.create_logout_url(self.request.uri)
             url_linktext = 'Logout'
@@ -78,32 +107,39 @@ class MainPage(webapp2.RequestHandler):
             url = users.create_login_url(self.request.uri)
             url_linktext = 'Login'
         template_values = {
-            'greetings': greetings,
-            'guestbook_name': guestbook_name,
+            'contest_word': contest_word,
             'url': url,
             'url_linktext': url_linktext,
         }
-        template = JINJA_ENVIRONMENT.get_template('choices.html')
+        template = JINJA_ENVIRONMENT.get_template('writepage.html')
         self.response.write(template.render(template_values))
 
-class PreWritePage(webapp2.RequestHandler):
+    def post(self):
+        contest_word = self.request.get('contest_word',
+                                          DEFAULT_CONTEST_WORD)
+        snackentry = SnackEntry(parent=contest_key(contest_word))
+
+        snackentry.author = self.request.get('author')
+
+        snackentry.content = self.request.get('content')
+        snackentry.contest_word = contest_word
+        snackentry.put()
+
+        #redirect somewhere better...
+        query_params = {'contest_word': contest_word}
+        self.redirect('/?' + urllib.urlencode(query_params))
+
+class WordPage(webapp2.RequestHandler):
     def get(self):
-        guestbook_name = self.request.get('guestbook_name',
-                                          DEFAULT_GUESTBOOK_NAME)
-        greetings_query = Greeting.query(
-            ancestor=guestbook_key(guestbook_name)).order(-Greeting.date)
-        greetings = greetings_query.fetch(10)
+        contest_word = self.request.get('contest_word', DEFAULT_CONTEST_WORD)
         if users.get_current_user():
             url = users.create_logout_url(self.request.uri)
             url_linktext = 'Logout'
         else:
             url = users.create_login_url(self.request.uri)
             url_linktext = 'Login'
-        contest_word = 'cherries'
         definition = 'plural of small, round stone fruit that is typically bright or dark red.'
         template_values = {
-            'greetings': greetings,
-            'guestbook_name': guestbook_name,
             'url': url,
             'url_linktext': url_linktext,
             'contest_word': contest_word,
@@ -203,6 +239,7 @@ class Guestbook(webapp2.RequestHandler):
 application = webapp2.WSGIApplication([
     ('/', MainPage),
     ('/choose', DecisionPage),
-    ('/write', PreWritePage),
+    ('/word', WordPage),
+    ('/write', WritePage),
     ('/sign', Guestbook),
 ], debug=True)
