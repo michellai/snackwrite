@@ -19,7 +19,7 @@ function startTimer() {
         color:"rgba(250,250,250," + alpha + ")",
         counter:0,
         old:0,
-        limit:4
+        limit:15 //number of seconds to wait
       },
       check = function(diff, count, setup, ctx) {
         if (count < setup.old){
@@ -69,6 +69,7 @@ function startTimer() {
                 $('#snacktext').submit();
             }*/
             clearInterval(drawTime);
+            $('#snacktext').submit();
         }
         check(diff, secCount, secSetup, ctx);
         secSetup.old = secCount - 0.01;
