@@ -11,6 +11,8 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
     <script src="app/js/bootstrap.min.js"></script>
     <script src="app/js/choice.js"></script>
+    <script src="app/js/timer.js"></script>
+    <script src="app/js/write.js"></script>
     <script>
     function loadXMLDoc()
     {
@@ -41,105 +43,9 @@
       $(window).resize();
       $('body').on('click', '.submitName', function()  {
         setName($('.author').val());
-        $('.writeronebox').attr('contentEditable',true);
-        $('.writeronebox').focus();
-        $('.writeronebox').css('background-color', 'white');
-        $('.writeronebox').css('padding', '20px');
-        $('.author').css('display', 'none');
-        $('.submitName').css('display', 'none');
-        $('.writeronebox').addClass('text-left');
-        $('.submitSnack').show();
         startTimer();
       });
     });
-    </script>
-    <script type="text/javascript">
-    function setName(person)
-    {
-        var x;
-
-        //var person = prompt("Please enter your name","Shakespeare");
-
-        if (person!=null)
-        {
-            x = person;
-        }
-        else {
-            x = "writer one"
-        }
-        document.getElementsByClassName("writerone")[0].innerHTML=x;
-        document.getElementsByClassName("author")[0].value=x;
-    }
-    function startTimer() {
-      var center = 100,
-          backColor = "rgba(250,250,250,.4)",
-          alpha = 0.9,
-          backgroundCheck = false,
-          canvas = document.getElementById("myCanvas"),
-          ctx = canvas.getContext("2d"),
-          shadow = {
-            color:"rgba(35,242,250,1)",
-            offsetX:0,
-            offsetY:0,
-            blur:1
-          },
-          secSetup = {
-            radie:66,
-            lineWidth:65,
-            back:66,
-            color:"rgba(250,250,250," + alpha + ")",
-            counter:0,
-            old:0
-          },
-          check = function(count, setup, ctx) {
-            if (count < setup.old){
-              setup.counter++
-            }
-            if(setup.counter % 2 === 0){
-              draw(setup.radie, setup.color, setup.lineWidth, 0, count, ctx);
-            } else{
-              draw(setup.radie, setup.color, setup.lineWidth, count, 0, ctx);
-            }
-          },
-          draw = function(radie, color, lineWidth, firstCount, secondCount, ctx) {
-            ctx.beginPath();
-            ctx.arc(center, center, radie, firstCount * Math.PI, secondCount * Math.PI, false);
-            ctx.lineWidth = lineWidth;
-            ctx.shadowColor = shadow.color;
-            ctx.shadowOffsetX = shadow.offsetX;
-            ctx.shadowOffsetY = shadow.offsetY;
-            ctx.shadowBlur = shadow.blur;
-            ctx.strokeStyle = color;
-            ctx.stroke();
-          },
-          background = function() {
-            draw(secSetup.radie, backColor, secSetup.back, 0, 2, ctx);
-            draw(secSetup.radie, backColor, secSetup.lineWidth, 0, 2, ctx);
-          };
-
-      $("body").click(function() {
-        backgroundCheck = !backgroundCheck;
-      });
-
-      setInterval(function(){
-        canvas.width = canvas.width;
-        background();
-        var d = new Date(),
-            milliSeconds = d.getMilliseconds(),
-            seconds = (d.getSeconds() + ((d.getMilliseconds() / 1000))),
-            minutes = (d.getMinutes() + (seconds / 60)),
-            hours = (d.getHours() + (minutes / 60)) % 12,
-            hourCount = (2 / 12) * hours,
-            minCount = (2 / 60) * minutes,
-            secCount = (2 / 60) * seconds,
-            milliCount = (2 / 1000) * milliSeconds;
-        check(secCount, secSetup, ctx);
-
-        secSetup.old = secCount - 0.01;
-      }, 0);
-      
-    }
-
     </script>
 </head>
 <body >
@@ -177,6 +83,7 @@
               <div class="col-sm-5 col-sm-offset-1 hidden-xs text-center center-block">
                   <div class="writerone writers label">writer one</div>
                   <div class="center-block writeronebox inputbox" tabindex="-1">
+                      <div class="writing hidden"></div>
                     <input type="text" class="author textfield text-center" name="author" placeholder="your name" />
                     <div class="submitName text-center btn-info">Start!</div>
 

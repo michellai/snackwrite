@@ -260,6 +260,9 @@ h2.inputbox {
     height:342px;
     padding-top: 15%;
 }
+.writing {
+    z-index: 99;
+}
 #write {
     padding: 0 15px;
     margin: 0 -15px;
